@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField]
     public float _speed = 3.5f;
+    [SerializeField]
+    private GameObject _laserPrefab;
+    [SerializeField]
+    private GameObject Disparo;
+    [SerializeField]
+    private float _fireRate = 0.5f;
+    private float _canFire = -1f;
     void Start()
     {
         // current position  = new position (0, 0, 0)
@@ -23,14 +31,24 @@ public class Player : MonoBehaviour
         movimiento(_speed);
         // funcion que limita el mapa a 9x-9x6x-4 con teleport
         limitadorDeMapa();
+
+        
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        {
+            FireLaser();
+        }
+        
     }
+    void FireLaser()
+    {
+        _canFire = Time.time + _fireRate;
+    //METODO 1
+        Vector3 offset = new Vector3(0, 0.8f, 0);
+        Instantiate(_laserPrefab, transform.position + offset, Quaternion.identity);
 
-
-
-
-
-
-
+    //METODO 2
+        //Instantiate(_laserPrefab, Disparo.transform.position, Quaternion.identity);
+    }
       void limitadorDeMapa()
     {
         if (transform.position.y >= 6f)
