@@ -54,24 +54,24 @@ public class Player : MonoBehaviour
     }
       void limitadorDeMapa()
     {
-        if (transform.position.y >= 4.5f)
-            transform.position = new Vector3(transform.position.x, 4.5f, 0);
-        else if (transform.position.y <= -4.5f)
-            transform.position = new Vector3(transform.position.x, -4.5f, 0);
+        if (transform.position.y >= 6f)
+            transform.position = new Vector3(transform.position.x, 6f, 0);
+        else if (transform.position.y <= -4f)
+            transform.position = new Vector3(transform.position.x, -4f, 0);
         else if (transform.position.x >= 9f)
             transform.position = new Vector3(-9f, transform.position.y, 0);
         else if (transform.position.x <= -9f)
             transform.position = new Vector3(9f, transform.position.y, 0);
 
-        if (transform.position.x <= -9f && transform.position.y <= -4.5f)
-            transform.position = new Vector3(9f, -4.5f, 0); 
-        else if (transform.position.x >= 9f && transform.position.y <= -4.5f)
-            transform.position = new Vector3(-9f, -4.5f, 0); 
+        if (transform.position.x <= -9f && transform.position.y <= -4f)
+            transform.position = new Vector3(9f, -4f, 0); 
+        else if (transform.position.x >= 9f && transform.position.y <= -4f)
+            transform.position = new Vector3(-9f, -4f, 0); 
 
-        if (transform.position.x <= -9f && transform.position.y >= 4.5f)
-            transform.position = new Vector3(9f, 4.5f, 0); 
-        else if (transform.position.x >= 9f && transform.position.y >= 4.5f)
-            transform.position = new Vector3(-9f, 4.5f, 0);
+        if (transform.position.x <= -9f && transform.position.y >= 6f)
+            transform.position = new Vector3(9f, 6f, 0); 
+        else if (transform.position.x >= 9f && transform.position.y >= 6f)
+            transform.position = new Vector3(-9f, 6f, 0);
     }
       public void movimiento(float _speed)
     {
