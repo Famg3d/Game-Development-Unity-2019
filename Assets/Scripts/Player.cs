@@ -8,11 +8,14 @@ public class Player : MonoBehaviour
     public float _speed = 3.5f;
     [SerializeField]
     private GameObject _laserPrefab;
-    [SerializeField]
-    private GameObject Disparo;
+    
     [SerializeField]
     private float _fireRate = 0.5f;
     private float _canFire = -1f;
+    [SerializeField]
+    private int _lives = 3;
+    [SerializeField]
+    private GameObject Disparo;
     void Start()
     {
         // current position  = new position (0, 0, 0)
@@ -76,6 +79,15 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
         transform.Translate(direction * _speed * Time.deltaTime);
+    }
+    public void Damage()
+    {
+        _lives--;
+
+        if (_lives < 1)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
     
