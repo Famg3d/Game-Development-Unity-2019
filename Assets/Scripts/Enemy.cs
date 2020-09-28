@@ -22,14 +22,14 @@ public class Enemy : MonoBehaviour
             transform.position = new Vector3(randomX, 7, 0);
         }
     }
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter2D(Collider2D other) 
     {
         // cuando el objeto colisione con otros objetos lo dira en la consola
         // Debug.Log("Hit:" + other.transform.name);
         if (other.tag == "Player")
         {
             Player player = other.transform.GetComponent<Player>();
-            
+
             if (player != null)
             {
                 player.Damage();
