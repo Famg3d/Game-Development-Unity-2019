@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class enemy : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 4.0f;
+    public float _speed = 4.0f;
+     [SerializeField]
+    public GameObject player;
+    // Start is called before the first frame update
+
+    Player golpe;
     void Start()
     {
         
@@ -15,32 +20,37 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
-
-        if (transform.position.y < -5f)
+        if(transform.position.y < -5f )
         {
-            float randomX = Random.Range(-8f, 8f);
-            transform.position = new Vector3(randomX, 7, 0);
+            float randomX = Random.Range(-8f , 8f);
+            transform.position = new Vector3(randomX, 7 , 0 );
         }
-    }
-    private void OnTriggerEnter(Collider other) 
-    {
-        // cuando el objeto colisione con otros objetos lo dira en la consola
-        // Debug.Log("Hit:" + other.transform.name);
+
+    }   
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        Debug.Log("Hit : " + other.transform.name);
+
         if (other.tag == "Player")
         {
-            Player player = other.transform.GetComponent<Player>();
-            
-            if (player != null)
+            Player jugador = other.transform.GetComponent<Player>();
+
+            if (jugador != null)
             {
-                player.Damage();
+                jugador.Damage();
             }
+
             Destroy(this.gameObject);
+
         }
 
         if (other.tag == "Laser")
         {
-            Destroy(this.gameObject);
             Destroy(other.gameObject);
+            Destroy(this.gameObject);
+
         }
+
+
     }
 }

@@ -6,25 +6,45 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject _enemyPrefab;
+    
     [SerializeField]
-    private GameObject _enemyContainer;
+    private GameObject _enemyContenedor;
+    [SerializeField]
+    private GameObject _tripleShotPrefab;
+
+    private bool _stopSpawning = false;
     void Start()
     {
         StartCoroutine(SpawnRoutine());
+        StartCoroutine(SpawnPowerRoutine());
     }
 
-    void Update()
+    /* void Update()
     {
-        
+        StartCoroutine(OnPlayerDeath());
     }
+    */
     IEnumerator SpawnRoutine()
     {
-        while(true)
+        while(_stopSpawning == false)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
             GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity);
-            newEnemy.transform.parent = _enemyContainer.transform;
+            newEnemy.transform.parent = _enemyContenedor.transform;
             yield return new WaitForSeconds(5.0f);
         }
+    }
+    IEnumerator SpawnPowerRoutine()
+    {
+        while (_stopSpawning == false)
+        {
+            Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
+            Instantiate(_tripleShotPrefab, posToSpawn, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(3, 8));
+        }
+    }
+    public void OnPlayerDeath()
+    {
+        _stopSpawning = true;
     }
 }
