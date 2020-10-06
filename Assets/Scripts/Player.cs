@@ -5,7 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    public float _speed = 3.5f;
+    public float _speed = 10f;
+    private float _speedMultiplies = 2f;
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
@@ -15,10 +16,11 @@ public class Player : MonoBehaviour
     private float _fireRate = 0.5f;
     private float _canFire = -1f;
     [SerializeField]
-    private int _lives = 3;
+    private int _lives = 10;
     private SpawnManager _spawnManager;
-    [SerializeField]
+
     private bool _isTripleShotActivate = false;
+    private bool _isSpeedBoostActive = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -80,10 +82,10 @@ public class Player : MonoBehaviour
     }
     void limitadorDeMapa()
     {
-        if (transform.position.y >= 6f)
-            transform.position = new Vector3(transform.position.x, 6f, 0);
-        else if (transform.position.y <= -4f)
-            transform.position = new Vector3(transform.position.x, -4f, 0);
+        if (transform.position.y >= 4.8f)
+            transform.position = new Vector3(transform.position.x, 4.87f, 0);
+        else if (transform.position.y <= -3f)
+            transform.position = new Vector3(transform.position.x, -3f, 0);
         else if (transform.position.x >= 9f)
             transform.position = new Vector3(-9f, transform.position.y, 0);
         else if (transform.position.x <= -9f)
@@ -104,6 +106,7 @@ public class Player : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
+
         transform.Translate(direction * _speed * Time.deltaTime);
     }
     public void TripleShotActivate()
@@ -115,5 +118,17 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         _isTripleShotActivate = false;
+    }
+    public void SpeedBoostActive()
+    {
+        _isSpeedBoostActive = true;
+        _speed *= _speedMultiplies;
+        StartCoroutine(SpeedBoostPowerDownRoutine());
+    }
+    IEnumerator SpeedBoostPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5.0f);
+        _isSpeedBoostActive = false;
+        _speed /= _speedMultiplies;
     }
 }
