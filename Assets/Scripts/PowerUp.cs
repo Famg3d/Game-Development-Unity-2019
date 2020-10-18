@@ -29,11 +29,10 @@ public class PowerUp : MonoBehaviour
                         player.TripleShotActivate();
                         break;
                     case 1:
-                        Debug.Log("Speed Collected");
                         player.SpeedBoostActive();
                         break;
                     case 2:
-                        Debug.Log("Shields Collected");
+                        player.ShieldActive();
                         break;
                     default:
                         Debug.Log("Default Value");
