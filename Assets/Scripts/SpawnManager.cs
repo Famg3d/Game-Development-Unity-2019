@@ -15,10 +15,13 @@ public class SpawnManager : MonoBehaviour
     private bool _stopSpawning = false;
     void Start()
     {
+        
+    }
+    public void StartSpawing()
+    {
         StartCoroutine(SpawnRoutine());
         StartCoroutine(SpawnPowerRoutine());
     }
-
     /* void Update()
     {
         StartCoroutine(OnPlayerDeath());
@@ -26,6 +29,8 @@ public class SpawnManager : MonoBehaviour
     */
     IEnumerator SpawnRoutine()
     {
+        yield return new WaitForSeconds(3.0f);
+        
         while(_stopSpawning == false)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);
@@ -36,6 +41,8 @@ public class SpawnManager : MonoBehaviour
     }
     IEnumerator SpawnPowerRoutine()
     {
+        yield return new WaitForSeconds(3.0f);
+
         while (_stopSpawning == false)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8f, 8f), 7, 0);

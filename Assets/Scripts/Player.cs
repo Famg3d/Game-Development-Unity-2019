@@ -25,13 +25,19 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _shieldVisualizer; 
     [SerializeField]
+    private GameObject _rightEngine, _leftEngine;
+    [SerializeField]
     private int _score;
     private UIManager _uiManager;
+    [SerializeField]
+    private AudioClip   _laserSoundClip;
+    private AudioSource _audioSource;
     void Start()
     {
         transform.position = new Vector3(0,0,0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("UI_Manager").GetComponent<UIManager>();
+        _audioSource = GetComponent<AudioSource>();
 
         if (_spawnManager == null)
         {
@@ -40,7 +46,14 @@ public class Player : MonoBehaviour
 
         if (_uiManager == null)
         {
-            Debug.LogError("The UI es NULL");
+            Debug.LogError("The UI is NULL");
+        }
+        if (_audioSource == null)
+        {
+            Debug.LogError("AudioSource on the player is Null");
+        }
+        else{
+            _audioSource.clip = _laserSoundClip;
         }
     }
 
@@ -76,6 +89,15 @@ public class Player : MonoBehaviour
         
         _lives--;
 
+        if (_lives == 2)
+        {
+            _leftEngine.SetActive(true);
+        }
+        else if (_lives == 1)
+        {
+            _rightEngine.SetActive(true);
+        }
+
         if (_lives == 0)
         {
             Destroy(this.gameObject);
@@ -102,6 +124,7 @@ public class Player : MonoBehaviour
         //METODO 2
             //Instantiate(_laserPrefab, Disparo.transform.position, Quaternion.identity);
         */
+        _audioSource.Play();
     }
     void limitadorDeMapa()
     {
