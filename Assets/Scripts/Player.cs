@@ -122,7 +122,7 @@ public class Player : MonoBehaviour
             Instantiate(_laserPrefab, transform.position + offset, Quaternion.identity);
 
         //METODO 2
-            //Instantiate(_laserPrefab, Disparo.transform.position, Quaternion.identity);
+            //Instantiate(_laserPrefab, gun.transform.position, Quaternion.identity);
         */
         _audioSource.Play();
     }
